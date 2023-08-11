@@ -1,8 +1,11 @@
-import PropTypes from 'prop-types';
-import css from './ContactForm.module.css';
 import { FcAddDatabase } from 'react-icons/fc';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
+import { nanoid } from '@reduxjs/toolkit';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
+import css from './ContactForm.module.css';
 
 //Регулярні вирази для валідації відповідних полів форми
 const regexName = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
@@ -25,15 +28,38 @@ const schema = object({
     .required('Phone number is required'),
 });
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  //Початкові значення полів форми
   const initialValues = {
     name: '',
     number: '',
   };
 
+  //Функція генерації id. Сама Функція nanoid() приймає необов'язковий аргумент, що задає довжину id
+  const generetedId = () => {
+    return nanoid(5);
+  };
+
+  //Функція обробки сабміту форми - додавання нового контакту в стор при сабміті форми
+  const formSubmitHandler = data => {
+    console.log(data);
+    //Заборона додавати контакти, імена яких вже присутні у телефонній книзі.
+    if (contacts.some(contact => contact.name === data.name)) {
+      alert(`${data.name} is already in contacts.`);
+      return;
+    }
+    dispatch(
+      addContact({ id: generetedId(), name: data.name, number: data.number })
+    );
+  };
+
+  //Функція сабміту форми
   const handleSubmit = (values, { resetForm }) => {
     console.log(values);
-    onSubmit(values);
+    formSubmitHandler(values);
     resetForm();
   };
 
@@ -79,8 +105,4 @@ export const ContactForm = ({ onSubmit }) => {
       </Form>
     </Formik>
   );
-};
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
