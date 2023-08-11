@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+//Початкове значення масива contacts у redux-стейті
 const initialState = {
   contacts: [
     { id: 'id-1', name: 'Andriy Shevchenko', number: '+38-097-325-34-97' },
@@ -13,12 +14,14 @@ const initialState = {
   ],
 };
 
+//Створюємо contactsSlice
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
     addContact: (state, action) => {
       state.contacts = [...state.contacts, action.payload];
+      //   state.contacts.push(action.payload) - можна також напряму пушити масив, бо спрацює ліба Immer та виконує оновлення імутабельно
     },
     deleteContact: (state, action) => {
       state.contacts = state.contacts.filter(el => el.id !== action.payload);
@@ -26,5 +29,5 @@ export const contactsSlice = createSlice({
   },
 });
 
-export const { addContact, deleteContact } = contactsSlice.actions;
-export const contactsReducer = contactsSlice.reducer;
+export const { addContact, deleteContact } = contactsSlice.actions; // Експортуємо actions у зовнішній код
+export const contactsReducer = contactsSlice.reducer; // Експортуємо filterReducer у зовнішній код
