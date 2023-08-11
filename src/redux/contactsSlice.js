@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   contacts: [
-    { id: 'id-1', name: 'Андрій Шевченко', number: '+38-097-325-34-97' },
-    { id: 'id-2', name: 'Сергій Ребров', number: '+38-096-421-65-70' },
+    { id: 'id-1', name: 'Andriy Shevchenko', number: '+38-097-325-34-97' },
+    { id: 'id-2', name: 'Serhiy Rebrov', number: '+38-096-421-65-70' },
     {
       id: 'id-3',
-      name: 'Руслан Ротань',
+      name: 'Ruslan Rotan',
       number: '+38-063-889-23-12',
     },
-    { id: 'id-4', name: 'Андрій Ярмоленко', number: '+38-050-455-67-90' },
+    { id: 'id-4', name: 'Andriy Yarmolenko', number: '+38-050-455-67-90' },
   ],
 };
 
