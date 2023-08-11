@@ -33,7 +33,7 @@ export const ContactForm = () => {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
-  //Початкові значення полів форми
+  //Початкові значення полів форми для Formik
   const initialValues = {
     name: '',
     number: '',
@@ -52,7 +52,7 @@ export const ContactForm = () => {
       return;
     }
     dispatch(
-      addContact({ id: generetedId(), name: data.name, number: data.number })
+      addContact({ id: generetedId(), name: data.name, number: data.number }) //Відправляємо action addContact в redux store
     );
   };
 

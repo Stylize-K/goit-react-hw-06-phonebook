@@ -16,7 +16,7 @@ export const ContactListItem = ({ contact }) => {
       <button
         className={css.button_delete}
         type="button"
-        onClick={() => dispatch(deleteContact(contact.id))}
+        onClick={() => dispatch(deleteContact(contact.id))} //Відправляємо action deleteContact в redux store по кліку на кнопці "Delete"
       >
         Delete
       </button>
