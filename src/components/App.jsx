@@ -3,6 +3,7 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { useSelector } from 'react-redux';
 import { getContactsCount } from 'redux/selectors';
+import { Toaster } from 'react-hot-toast';
 import css from './App.module.css';
 
 export const App = () => {
@@ -29,6 +30,7 @@ export const App = () => {
       </p>
       <Filter />
       <ContactList />
+      <Toaster position="top-right" />
     </div>
   );
 };

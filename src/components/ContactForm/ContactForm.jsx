@@ -5,6 +5,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 import { getContacts } from 'redux/selectors';
+import toast from 'react-hot-toast';
 import css from './ContactForm.module.css';
 
 //Регулярні вирази для валідації відповідних полів форми
@@ -45,10 +46,9 @@ export const ContactForm = () => {
 
   //Функція обробки сабміту форми - додавання нового контакту в стор при сабміті форми
   const formSubmitHandler = data => {
-    console.log(data);
     //Заборона додавати контакти, імена яких вже присутні у телефонній книзі.
     if (contacts.some(contact => contact.name === data.name)) {
-      alert(`${data.name} is already in contacts.`);
+      toast.error(`${data.name} is already in contacts.`);
       return;
     }
     dispatch(
@@ -58,7 +58,6 @@ export const ContactForm = () => {
 
   //Функція сабміту форми
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
     formSubmitHandler(values);
     resetForm();
   };
